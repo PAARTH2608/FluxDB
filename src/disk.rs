@@ -33,7 +33,7 @@ impl Disk {
   pub fn new(dir: &str) -> Disk {
     let dir = PathBuf::from(dir);
 
-    let (wal, mem_table) = WAL::load_from_dir(&dir).unwrap();
+    let (wal, mem_table) = WAL::recover_from_directory(&dir).unwrap();
 
     Disk {
       mem_table,
@@ -59,7 +59,7 @@ impl Disk {
       .unwrap()
       .as_micros();
 
-    let wal_res = self.wal.set(key, value, timestamp);
+    let wal_res = self.wal.record_insertion(key, value, timestamp);
     if wal_res.is_err() {
       return Err(0);
     }
@@ -78,7 +78,7 @@ impl Disk {
       .unwrap()
       .as_micros();
 
-    let wal_res = self.wal.delete(key, timestamp);
+    let wal_res = self.wal.record_removal(key, timestamp);
     if wal_res.is_err() {
       return Err(0);
     }
