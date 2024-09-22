@@ -98,7 +98,7 @@ impl WAL {
     /// Records a removal operation in the WAL.
     pub fn record_removal(&mut self, key: &[u8], timestamp: u128) -> io::Result<()> {
         self.writer.write_all(&(key.len() as u64).to_le_bytes())?; // Key size
-        self.writer.write_all(&(true as u8).to_le_bytes())?; // Deletion flag
+        self.writer.write_all(&(true as u8).to_le_bytes())?; // Deletion flag (true)
         self.writer.write_all(key)?; // Key
         self.writer.write_all(&timestamp.to_le_bytes())?; // Timestamp
         Ok(())

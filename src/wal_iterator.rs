@@ -24,6 +24,15 @@ impl LogFileIterator {
     }
 }
 
+/*
+    ---------- USAGE ----------
+    * Reads the key length (first 8 bytes).
+    * Reads the deletion flag (1 byte), indicating whether the record is marked as deleted.
+    * Reads the key (identifier).
+    * Reads the value if the record is not deleted, or skips it if it is.
+    * Reads the timestamp (16 bytes).
+    * Returns the LogRecord that contains all this data.
+*/
 impl Iterator for LogFileIterator {
     type Item = LogRecord;
 

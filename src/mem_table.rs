@@ -7,8 +7,8 @@ pub struct InMemoryRecord {
 }
 
 /* NOTE: A structure to hold the most recent written records, temporarily stored in memory.
-Entries in the InMemoryTable are kept in order to facilitate scans, and are
- moved to disk once the table reaches a predefined size limit.
+   Entries in the InMemoryTable are kept in order to facilitate scans, and are
+   moved to disk once the table reaches a predefined size limit.
 */
 
 pub struct InMemoryTable {
